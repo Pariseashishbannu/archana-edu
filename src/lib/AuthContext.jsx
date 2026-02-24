@@ -6,19 +6,34 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({
+        id: 'demo-user-id',
+        email: 'scholar@archanaedu.com',
+        user_metadata: { full_name: 'Demo Scholar' }
+    });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
+            if (session?.user) {
+                setUser(session.user);
+            }
             setLoading(false);
         });
 
         // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
+            if (session?.user) {
+                setUser(session.user);
+            } else {
+                // Keep demo user if logged out in demo mode
+                setUser({
+                    id: 'demo-user-id',
+                    email: 'scholar@archanaedu.com',
+                    user_metadata: { full_name: 'Demo Scholar' }
+                });
+            }
         });
 
         return () => subscription.unsubscribe();
@@ -45,6 +60,11 @@ export const AuthProvider = ({ children }) => {
 
     const signOut = async () => {
         const { error } = await supabase.auth.signOut();
+        setUser({
+            id: 'demo-user-id',
+            email: 'scholar@archanaedu.com',
+            user_metadata: { full_name: 'Demo Scholar' }
+        });
         return { error };
     };
 

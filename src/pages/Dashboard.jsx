@@ -11,16 +11,19 @@ const Dashboard = () => {
     if (!user) {
         return (
             <div className="container section animate-fade-in" style={{ textAlign: 'center' }}>
-                <div className="card glass" style={{ maxWidth: '500px', margin: '0 auto', padding: '3rem' }}>
-                    <h2 style={{ marginBottom: '1rem' }}>Please Sign In</h2>
-                    <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>You need to be logged in to view your dashboard.</p>
-                    <button className="btn btn-primary" onClick={() => navigate('/auth')}>Sign In</button>
+                <div className="card glass-premium" style={{ maxWidth: '600px', margin: '15vh auto', padding: '5rem 3rem', borderRadius: '40px' }}>
+                    <div style={{ width: '80px', height: '80px', background: 'rgba(99, 102, 241, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2.5rem', color: 'var(--primary)' }}>
+                        <Zap size={40} />
+                    </div>
+                    <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>Unauthorized Access</h2>
+                    <p style={{ marginBottom: '3rem', color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: 600 }}>Please authenticate to access your personalized dashboard.</p>
+                    <button className="btn btn-primary shadow-lg shimmer" style={{ height: '60px', padding: '0 3rem', borderRadius: '18px', fontSize: '1.1rem', fontWeight: 800 }} onClick={() => navigate('/auth')}>Return to Gateway</button>
                 </div>
             </div>
         );
     }
 
-    const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student';
+    const displayName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Scholar';
     const { badges } = gamificationData;
     const mockLeaderboard = [
         { name: 'Sunaina J.', points: 1250, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100' },
@@ -31,149 +34,175 @@ const Dashboard = () => {
 
     return (
         <div className="container section animate-fade-in">
-            {/* Header / Profile Section */}
-            <div className="card glass" style={{
-                padding: '2.5rem',
-                marginBottom: '2rem',
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05))',
-                borderRadius: '24px',
-                border: '1px solid rgba(0,0,0,0.05)'
+            {/* Immersive Profile Header */}
+            <div className="card glass-premium" style={{
+                padding: '4rem',
+                marginBottom: '3rem',
+                background: 'linear-gradient(165deg, rgba(255,255,255,0.9), rgba(99, 102, 241, 0.05))',
+                borderRadius: '48px',
+                border: '1px solid rgba(255,255,255,0.4)',
+                position: 'relative',
+                overflow: 'hidden'
             }}>
-            <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-                    <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                        <div style={{
-                            width: '110px',
-                            height: '110px',
-                            borderRadius: '50%',
-                            overflow: 'hidden',
-                            border: '4px solid var(--white)',
-                            boxShadow: 'var(--shadow)',
-                            background: 'white'
-                        }}>
-                            <img
-                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
-                                alt="Profile"
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
+                <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '250px', height: '250px', background: 'var(--primary)', opacity: 0.03, borderRadius: '50%', filter: 'blur(50px)' }}></div>
+
+                <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '3rem', position: 'relative' }}>
+                    <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+                        <div style={{ position: 'relative' }}>
+                            <div style={{
+                                width: '130px',
+                                height: '130px',
+                                borderRadius: '40px',
+                                overflow: 'hidden',
+                                border: '6px solid white',
+                                boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)',
+                                background: 'white'
+                            }}>
+                                <img
+                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+                                    alt="Profile"
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
+                            </div>
+                            <div style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: '#10b981', color: 'white', padding: '0.4rem 1rem', borderRadius: '50px', fontSize: '0.7rem', fontWeight: 900, border: '4px solid white', boxShadow: '0 4px 10px rgba(16, 185, 129, 0.3)' }}>ONLINE</div>
                         </div>
                         <div>
                             <span style={{
-                                background: 'var(--primary)',
-                                color: 'white',
-                                padding: '0.2rem 0.8rem',
-                                borderRadius: '20px',
+                                background: 'rgba(99, 102, 241, 0.1)',
+                                color: 'var(--primary)',
+                                padding: '0.4rem 1.25rem',
+                                borderRadius: '50px',
                                 fontSize: '0.75rem',
-                                fontWeight: 700,
+                                fontWeight: 800,
                                 textTransform: 'uppercase',
-                                marginBottom: '0.5rem',
-                                display: 'inline-block'
-                            }}>Student Account</span>
-                            <h1 style={{ fontSize: '2.5rem', marginBottom: '0.25rem' }}>Hey, <span className="gradient-text">{displayName}</span>!</h1>
-                            <p style={{ color: 'var(--text-muted)' }}>Ready for some literature exploration today?</p>
+                                marginBottom: '1rem',
+                                display: 'inline-block',
+                                letterSpacing: '1px'
+                            }}>Verified Scholar</span>
+                            <h1 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '0.5rem', letterSpacing: '-1px' }}>Greetings, <span className="gradient-text">{displayName}</span></h1>
+                            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: 600 }}>Your intellectual journey is <strong>85% complete</strong> this month.</p>
                         </div>
                     </div>
 
-                    <div className="dashboard-stats" style={{ display: 'flex', gap: '1.5rem' }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--primary)' }}>2</div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>COURSES</div>
-                        </div>
-                        <div style={{ width: '1px', height: '40px', background: 'rgba(0,0,0,0.1)', alignSelf: 'center' }}></div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--secondary)' }}>850</div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>POINTS</div>
-                        </div>
-                        <div style={{ width: '1px', height: '40px', background: 'rgba(0,0,0,0.1)', alignSelf: 'center' }}></div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#10b981' }}>85%</div>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>PROGRESS</div>
-                        </div>
+                    <div className="dashboard-stats" style={{ display: 'flex', gap: '2rem' }}>
+                        {[
+                            { label: 'Courses', val: '02', color: 'var(--primary)' },
+                            { label: 'Points', val: '850', color: 'var(--secondary)' },
+                            { label: 'Accuracy', val: '92%', color: '#10b981' }
+                        ].map((stat, i) => (
+                            <React.Fragment key={i}>
+                                <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+                                    <div style={{ fontSize: '2.5rem', fontWeight: 900, color: stat.color, lineHeight: 1 }}>{stat.val}</div>
+                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 800, textTransform: 'uppercase', marginTop: '0.5rem' }}>{stat.label}</div>
+                                </div>
+                                {i < 2 && <div style={{ width: '1px', height: '60px', background: 'rgba(0,0,0,0.05)', alignSelf: 'center' }}></div>}
+                            </React.Fragment>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {/* Badges Quick View */}
-            <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '3rem', overflowX: 'auto', paddingBottom: '1rem' }}>
+            {/* Achievement Ribbon */}
+            <div style={{ display: 'flex', gap: '2rem', marginBottom: '4rem', overflowX: 'auto', paddingBottom: '1rem', scrollbarWidth: 'none' }}>
                 {badges.map(badge => (
-                    <div key={badge.id} className="glass" style={{
-                        padding: '1rem 1.5rem',
-                        borderRadius: '20px',
+                    <div key={badge.id} className="glass-premium glow-hover" style={{
+                        padding: '1.25rem 2rem',
+                        borderRadius: '24px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '1rem',
+                        gap: '1.25rem',
                         minWidth: 'max-content',
-                        border: '1px solid rgba(255,255,255,0.2)'
+                        background: 'rgba(255,255,255,0.8)',
+                        border: '1px solid rgba(0,0,0,0.03)'
                     }}>
-                        <span style={{ fontSize: '2rem' }}>{badge.icon}</span>
+                        <div style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.1))' }}>{badge.icon}</div>
                         <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{badge.title}</div>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{badge.requirement}</div>
+                            <div style={{ fontWeight: 800, fontSize: '1rem' }}>{badge.title}</div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>{badge.requirement}</div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            <div className="dashboard-grid grid" style={{ gridTemplateColumns: '1.2fr 0.8fr', gap: '2.5rem' }}>
-                {/* Main Content: Courses & Leaderboard */}
-                <div style={{ display: 'grid', gap: '2.5rem' }}>
-                    <div className="card glass" style={{ padding: '2rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-                            <h2 style={{ fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <BookOpen size={24} color="var(--primary)" /> Active Learning
-                            </h2>
-                            <button style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 700, cursor: 'pointer', fontSize: '0.9rem' }}>View All Courses</button>
+            <div className="dashboard-grid grid" style={{ gridTemplateColumns: '1.3fr 0.7fr', gap: '3rem', alignItems: 'start' }}>
+                {/* Learning Hub */}
+                <div style={{ display: 'grid', gap: '3rem' }}>
+                    <div className="card glass-premium" style={{ padding: '3.5rem', borderRadius: '40px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3.5rem' }}>
+                            <div>
+                                <h2 style={{ fontSize: '2rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                    <BookOpen size={32} color="var(--primary)" /> Academic Enrolments
+                                </h2>
+                                <p style={{ color: 'var(--text-muted)', fontWeight: 600, marginTop: '0.5rem' }}>Track your progress and continue where you left off</p>
+                            </div>
+                            <button className="btn btn-secondary" style={{ padding: '0.75rem 1.5rem', borderRadius: '15px', fontWeight: 700 }}>Explore Catalog</button>
                         </div>
 
-                        <div style={{ display: 'grid', gap: '1.5rem' }}>
+                        <div style={{ display: 'grid', gap: '2rem' }}>
                             {[
-                                { title: 'UGC-NET Paper 1 Full Course', progress: 65, lastActive: '2 hours ago', icon: <Star size={16} /> },
-                                { title: 'Mastering Literary Theory', progress: 30, lastActive: 'Yesterday', icon: <BookOpen size={16} /> }
+                                { title: 'UGC-NET Strategic Paper 1', progress: 65, status: 'Active Research', instructor: 'Dr. Arjun Varma' },
+                                { title: 'Modern Literary Theory Mastery', progress: 30, status: 'Foundation Stage', instructor: 'Prof. Elena Gilbert' }
                             ].map((course, i) => (
-                                <div key={i} className="glass" style={{ padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.03)', background: 'rgba(255,255,255,0.5)' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                <div key={i} className="glass glow-hover" style={{
+                                    padding: '2.5rem',
+                                    borderRadius: '32px',
+                                    border: '1px solid rgba(0,0,0,0.04)',
+                                    background: 'rgba(255,255,255,0.5)',
+                                    position: 'relative'
+                                }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
                                         <div>
-                                            <h4 style={{ marginBottom: '0.25rem', fontSize: '1.1rem' }}>{course.title}</h4>
-                                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                                                <Clock size={12} /> Last accessed: {course.lastActive}
-                                            </p>
+                                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '1px' }}>{course.status}</span>
+                                            <h4 style={{ fontSize: '1.4rem', fontWeight: 800, marginTop: '0.5rem' }}>{course.title}</h4>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', opacity: 0.7 }}>
+                                                <div style={{ width: '18px', height: '18px', background: 'rgba(0,0,0,0.1)', borderRadius: '50%' }}></div>
+                                                <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{course.instructor}</span>
+                                            </div>
                                         </div>
-                                        <button className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}>Continue</button>
+                                        <button className="btn btn-primary shadow-sm" style={{ height: '48px', padding: '0 2rem', borderRadius: '14px', fontWeight: 800 }}>Resume Module</button>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                        <div style={{ flexGrow: 1, height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
-                                            <div style={{ width: `${course.progress}%`, height: '100%', background: 'var(--primary)', borderRadius: '4px' }}></div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                                        <div style={{ flexGrow: 1, height: '12px', background: 'rgba(0,0,0,0.05)', borderRadius: '20px', overflow: 'hidden', padding: '3px' }}>
+                                            <div className="shimmer" style={{ width: `${course.progress}%`, height: '100%', background: 'var(--primary)', borderRadius: '20px' }}></div>
                                         </div>
-                                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>{course.progress}%</span>
+                                        <span style={{ fontSize: '1.1rem', fontWeight: 900 }}>{course.progress}%</span>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Leaderboard Section */}
-                    <div className="card glass" style={{ padding: '2rem' }}>
-                        <h2 style={{ fontSize: '1.5rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <Trophy size={24} color="#f59e0b" /> Top Scholars
+                    {/* Elite Leaderboard */}
+                    <div className="card glass-premium" style={{ padding: '3.5rem', borderRadius: '40px' }}>
+                        <h2 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '3rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <Trophy size={32} color="#f59e0b" /> Hall of Scholars
                         </h2>
-                        <div style={{ display: 'grid', gap: '1rem' }}>
+                        <div style={{ display: 'grid', gap: '1.25rem' }}>
                             {mockLeaderboard.map((scholar, i) => (
-                                <div key={i} style={{
+                                <div key={i} className="glow-hover" style={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
-                                    padding: '1rem',
-                                    background: scholar.isUser ? 'rgba(99, 102, 241, 0.05)' : 'white',
-                                    borderRadius: '12px',
-                                    border: scholar.isUser ? '1px solid var(--primary)' : '1px solid rgba(0,0,0,0.05)'
+                                    padding: '1.5rem 2rem',
+                                    background: scholar.isUser ? 'rgba(99, 102, 241, 0.03)' : 'white',
+                                    borderRadius: '24px',
+                                    border: scholar.isUser ? '2px solid var(--primary)' : '1px solid rgba(0,0,0,0.03)',
+                                    transform: scholar.isUser ? 'scale(1.02)' : 'scale(1)',
+                                    zIndex: scholar.isUser ? 2 : 1
                                 }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                        <span style={{ fontWeight: 800, color: 'var(--text-muted)', width: '20px' }}>{i + 1}</span>
-                                        <img src={scholar.avatar} alt={scholar.name} style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
-                                        <span style={{ fontWeight: 600 }}>{scholar.name} {scholar.isUser && '(You)'}</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                                        <div style={{ width: '32px', textAlign: 'center', fontSize: '1.25rem', fontWeight: 900, color: i < 3 ? 'var(--primary)' : '#cbd5e1' }}>
+                                            {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}
+                                        </div>
+                                        <div style={{ position: 'relative' }}>
+                                            <img src={scholar.avatar} alt={scholar.name} style={{ width: '56px', height: '56px', borderRadius: '18px', objectFit: 'cover', border: '3px solid white', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }} />
+                                            {scholar.isUser && <div style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'var(--primary)', color: 'white', fontSize: '0.6rem', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 800 }}>YOU</div>}
+                                        </div>
+                                        <span style={{ fontWeight: 800, fontSize: '1.1rem' }}>{scholar.name}</span>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Zap size={16} color="var(--secondary)" />
-                                        <span style={{ fontWeight: 700 }}>{scholar.points} <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>pts</span></span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'rgba(245, 158, 11, 0.1)', padding: '0.6rem 1.25rem', borderRadius: '50px', color: '#f59e0b' }}>
+                                        <Zap size={18} fill="#f59e0b" />
+                                        <span style={{ fontWeight: 900, fontSize: '1rem' }}>{scholar.points} EXP</span>
                                     </div>
                                 </div>
                             ))}
@@ -181,40 +210,45 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Sidebar: Subs & Notices */}
-                <div style={{ display: 'grid', gap: '2.5rem', alignContent: 'start' }}>
-                    <div className="card glass" style={{ padding: '2rem' }}>
-                        <h2 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <CreditCard size={22} color="var(--secondary)" /> My Subscription
+                {/* Tactical Sidebar */}
+                <div style={{ display: 'grid', gap: '3rem', position: 'sticky', top: '100px' }}>
+                    <div className="card glass-premium" style={{ padding: '2.5rem', borderRadius: '32px' }}>
+                        <h2 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <Medal size={24} color="var(--secondary)" /> Active Tier
                         </h2>
-                        <div style={{ padding: '1.5rem', background: 'rgba(236, 72, 153, 0.03)', borderRadius: '20px', border: '1px solid rgba(236, 72, 153, 0.08)' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                                <div style={{ color: 'var(--secondary)', background: 'white', padding: '0.75rem', borderRadius: '14px', boxShadow: 'var(--shadow-sm)' }}><CreditCard size={20} /></div>
+                        <div style={{ padding: '2rem', background: 'rgba(236, 72, 153, 0.04)', borderRadius: '28px', border: '1px solid rgba(236, 72, 153, 0.1)', position: 'relative', overflow: 'hidden' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.5rem' }}>
+                                <div style={{ background: 'white', padding: '1rem', borderRadius: '20px', color: 'var(--secondary)', boxShadow: '0 15px 30px -10px rgba(236, 72, 153, 0.3)' }}><Star size={24} fill="currentColor" /></div>
                                 <div>
-                                    <h4 style={{ fontSize: '1rem', marginBottom: '0.1rem' }}>Victorian Classics Club</h4>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--secondary)' }}>PREMIUM</span>
+                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800 }}>Legendary Access</h4>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 900, color: 'var(--secondary)', letterSpacing: '1px' }}>ANNUAL BILLING</span>
                                 </div>
                             </div>
-                            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem', paddingLeft: '0.5rem' }}>
-                                <strong>Next billing:</strong> 15 Mar 2026
+                            <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '2rem', paddingLeft: '0.5rem', fontWeight: 600 }}>
+                                Your scholarship is secured until <strong>Mar 2027</strong>.
                             </div>
-                            <button className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Manage Billing</button>
+                            <button className="btn btn-secondary shadow-sm" style={{ width: '100%', height: '52px', fontSize: '0.95rem', fontWeight: 800, borderRadius: '16px' }}>Enrolment Details</button>
                         </div>
                     </div>
 
-                    <div className="card glass" style={{
+                    <div className="card glass-premium glow-hover" style={{
                         background: 'var(--dark)',
                         color: 'white',
-                        padding: '2rem',
-                        position: 'relative',
-                        overflow: 'hidden'
+                        padding: '3rem',
+                        borderRadius: '32px',
+                        border: 'none',
+                        textAlign: 'center'
                     }}>
-                        <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', background: 'var(--primary)', opacity: 0.2, filter: 'blur(40px)', borderRadius: '50%' }}></div>
-                        <h3 style={{ color: 'white', marginBottom: '1rem', position: 'relative' }}>Latest Update</h3>
-                        <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '2rem', lineHeight: '1.5', position: 'relative' }}>
-                            New Section-wise PYQs for Unit 5 are now officially live! Check your readiness today.
+                        <div style={{ width: '64px', height: '64px', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem' }}>
+                            <Zap size={32} color="var(--primary)" fill="var(--primary)" />
+                        </div>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>Unit 5 LIVE PYQs</h3>
+                        <p style={{ opacity: 0.7, fontSize: '1rem', lineHeight: '1.6', marginBottom: '2.5rem' }}>
+                            New practice simulations for Structural Research are now available for Legend members.
                         </p>
-                        <button className="btn btn-primary" style={{ width: '100%', padding: '0.65rem', fontSize: '0.9rem', position: 'relative' }}>Practice Now</button>
+                        <button className="btn btn-primary shimmer" style={{ width: '100%', height: '60px', borderRadius: '20px', background: 'white', color: 'var(--dark)', fontWeight: 900 }}>
+                            Start Practicing <ChevronRight size={20} />
+                        </button>
                     </div>
                 </div>
             </div>

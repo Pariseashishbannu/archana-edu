@@ -79,21 +79,34 @@ const QuizPage = () => {
     if (questions.length === 0) return <div className="container section">Loading...</div>;
 
     if (showResult) {
+        const percentage = Math.round((score / questions.length) * 100);
         return (
             <div className="container section animate-fade-in">
-                <div className="card glass" style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center', padding: '4rem 2rem' }}>
-                    <CheckCircle size={64} color="var(--primary)" style={{ marginBottom: '2rem' }} />
-                    <h1>{mode === 'mock' ? 'Test Completed!' : 'Practice Session Done!'}</h1>
-                    <div style={{ margin: '2rem 0' }}>
-                        <span style={{ fontSize: '4rem', fontWeight: 700, color: 'var(--primary)' }}>{score}</span>
-                        <span style={{ fontSize: '1.5rem', color: 'var(--text-muted)' }}> / {questions.length}</span>
+                <div className="card glass-premium" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '5rem 3rem', borderRadius: '40px' }}>
+                    <div style={{ width: '120px', height: '120px', background: 'rgba(99, 102, 241, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2.5rem', color: 'var(--primary)' }}>
+                        <CheckCircle size={60} />
                     </div>
-                    <p style={{ marginBottom: '3rem', fontSize: '1.2rem' }}>
-                        {score >= questions.length * 0.7 ? "Excellent performance! You're ready for the exam." : "Good effort! Keep practicing to improve your score."}
-                    </p>
-                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                        <button className="btn btn-primary" onClick={() => { setShowResult(false); setCurrentIndex(0); setUserAnswers(new Array(questions.length).fill(null)); setRevealed(new Array(questions.length).fill(false)); setTimeLeft(3600); setScore(0); }}>Try Again</button>
-                        <button className="btn btn-secondary" onClick={() => navigate('/quizzes')}>Back to Catalog</button>
+                    <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{mode === 'mock' ? 'Exam Complete' : 'Practice Finalized'}</h1>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '3rem' }}>Your performance metrics have been updated in your profile.</p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginBottom: '4rem' }}>
+                        <div className="glass" style={{ padding: '2rem', borderRadius: '24px' }}>
+                            <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--primary)' }}>{score}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Correct</div>
+                        </div>
+                        <div className="glass" style={{ padding: '2rem', borderRadius: '24px' }}>
+                            <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--secondary)' }}>{percentage}%</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Accuracy</div>
+                        </div>
+                        <div className="glass" style={{ padding: '2rem', borderRadius: '24px' }}>
+                            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{formatTime(3600 - timeLeft)}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Time Taken</div>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
+                        <button className="btn btn-primary shadow-lg" style={{ height: '56px', padding: '0 2.5rem' }} onClick={() => { setShowResult(false); setCurrentIndex(0); setUserAnswers(new Array(questions.length).fill(null)); setRevealed(new Array(questions.length).fill(false)); setTimeLeft(3600); setScore(0); }}>Retake Session</button>
+                        <button className="btn btn-secondary" style={{ height: '56px', padding: '0 2rem' }} onClick={() => navigate('/quizzes')}>View Other Units</button>
                     </div>
                 </div>
             </div>
@@ -105,66 +118,58 @@ const QuizPage = () => {
     const isRevealed = revealed[currentIndex] && mode === 'practice';
 
     return (
-        <div className="container section animate-fade-in" style={{ maxWidth: '800px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <div>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
-                        {section || 'General Quiz'}
-                    </h2>
-                    <span style={{
-                        fontSize: '0.8rem',
-                        fontWeight: 700,
-                        background: mode === 'mock' ? 'rgba(236, 72, 153, 0.1)' : 'rgba(99, 102, 241, 0.1)',
-                        color: mode === 'mock' ? 'var(--secondary)' : 'var(--primary)',
-                        padding: '0.2rem 0.8rem',
-                        borderRadius: '20px',
-                        textTransform: 'uppercase'
-                    }}>
-                        {mode} Mode
-                    </span>
-                </div>
-                {mode === 'mock' && (
-                    <div className="glass" style={{ padding: '0.5rem 1.5rem', borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--secondary)', fontWeight: 700 }}>
-                        <Timer size={20} />
-                        {formatTime(timeLeft)}
+        <div className="container section animate-fade-in" style={{ maxWidth: '900px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    <div style={{ width: '56px', height: '56px', background: 'var(--primary)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800, fontSize: '1.2rem' }}>
+                        {currentIndex + 1}
                     </div>
-                )}
+                    <div>
+                        <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>{section || 'Scholar Quiz'}</h2>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ width: '8px', height: '8px', background: '#10b981', borderRadius: '50%' }}></div>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Simulation Active</span>
+                        </div>
+                    </div>
+                </div>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    {mode === 'mock' && (
+                        <div className="card glass" style={{ padding: '0.5rem 1.5rem', borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--secondary)', fontWeight: 800, border: '1px solid rgba(236, 72, 153, 0.2)' }}>
+                            <Timer size={18} />
+                            {formatTime(timeLeft)}
+                        </div>
+                    )}
+                    <div className="card glass" style={{ padding: '0.5rem 1.25rem', borderRadius: '30px', color: 'var(--text-muted)', fontWeight: 700, fontSize: '0.85rem' }}>
+                        Progress: {Math.round(((currentIndex + 1) / questions.length) * 100)}%
+                    </div>
+                </div>
             </div>
 
-            <div style={{ marginBottom: '1rem', background: '#eee', height: '6px', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', background: 'var(--primary)', width: `${((currentIndex + 1) / questions.length) * 100}%`, transition: 'width 0.3s' }}></div>
+            <div style={{ marginBottom: '3rem', background: 'rgba(0,0,0,0.05)', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', background: 'linear-gradient(to right, var(--primary), var(--secondary))', width: `${((currentIndex + 1) / questions.length) * 100}%`, transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}></div>
             </div>
 
-            <div className="card glass" style={{ marginBottom: '2rem', position: 'relative' }}>
-                <span style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                    Q {currentIndex + 1} of {questions.length}
-                </span>
-                <h3 style={{ marginBottom: '2rem', fontSize: '1.5rem', pr: '4rem' }}>{q.question}</h3>
-                <div style={{ display: 'grid', gap: '1rem' }}>
+            <div className="card glass-premium" style={{ marginBottom: '3rem', padding: '3.5rem', borderRadius: '32px' }}>
+                <h3 style={{ marginBottom: '3rem', fontSize: '1.75rem', lineHeight: '1.4', fontWeight: 700 }}>{q.question}</h3>
+                <div style={{ display: 'grid', gap: '1.25rem' }}>
                     {q.options.map((opt, i) => {
-                        let bgColor = 'white';
-                        let borderColor = 'rgba(0,0,0,0.1)';
-                        let iconColor = 'var(--text-muted)';
-                        let radioBg = 'transparent';
+                        let borderColor = 'rgba(0,0,0,0.06)';
+                        let bgColor = 'rgba(255,255,255,0.5)';
+                        let shadow = 'none';
 
                         if (userAnswers[currentIndex] === i) {
                             borderColor = 'var(--primary)';
-                            bgColor = 'rgba(99, 102, 241, 0.05)';
-                            iconColor = 'var(--primary)';
-                            radioBg = 'var(--primary)';
+                            bgColor = 'rgba(99, 102, 241, 0.08)';
+                            shadow = '0 10px 25px -10px rgba(99, 102, 241, 0.3)';
                         }
 
                         if (isRevealed) {
                             if (i === q.answer) {
                                 borderColor = '#10b981';
-                                bgColor = 'rgba(16, 185, 129, 0.05)';
-                                iconColor = '#10b981';
-                                radioBg = '#10b981';
+                                bgColor = 'rgba(16, 185, 129, 0.08)';
                             } else if (userAnswers[currentIndex] === i) {
                                 borderColor = '#ef4444';
-                                bgColor = 'rgba(239, 68, 68, 0.05)';
-                                iconColor = '#ef4444';
-                                radioBg = '#ef4444';
+                                bgColor = 'rgba(239, 68, 68, 0.08)';
                             }
                         }
 
@@ -172,50 +177,52 @@ const QuizPage = () => {
                             <button
                                 key={i}
                                 onClick={() => handleSelect(i)}
-                                className="glass"
                                 disabled={isRevealed}
                                 style={{
-                                    padding: '1.25rem 2rem',
+                                    padding: '1.5rem 2rem',
                                     textAlign: 'left',
-                                    borderRadius: '16px',
+                                    borderRadius: '20px',
                                     cursor: isRevealed ? 'default' : 'pointer',
                                     border: `2px solid ${borderColor}`,
                                     background: bgColor,
+                                    boxShadow: shadow,
                                     fontWeight: 600,
-                                    transition: 'all 0.2s',
-                                    fontSize: '1rem'
+                                    transition: 'all 0.25s',
+                                    fontSize: '1.1rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '1.5rem',
+                                    color: 'var(--text-main)'
                                 }}
+                                className="glow-hover"
                             >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    <div style={{
-                                        width: '28px',
-                                        height: '28px',
-                                        borderRadius: '50%',
-                                        border: '2px solid currentColor',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        background: radioBg,
-                                        color: iconColor,
-                                        flexShrink: 0
-                                    }}>
-                                        {isRevealed && i === q.answer ? '✓' : isRevealed && userAnswers[currentIndex] === i ? '✕' : String.fromCharCode(65 + i)}
-                                    </div>
-                                    <span style={{ color: isRevealed && i === q.answer ? '#10b981' : isRevealed && userAnswers[currentIndex] === i ? '#ef4444' : 'inherit' }}>
-                                        {opt}
-                                    </span>
+                                <div style={{
+                                    width: '32px',
+                                    height: '32px',
+                                    borderRadius: '10px',
+                                    background: userAnswers[currentIndex] === i ? 'var(--primary)' : 'rgba(0,0,0,0.05)',
+                                    color: userAnswers[currentIndex] === i ? 'white' : 'var(--text-muted)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexShrink: 0,
+                                    fontSize: '0.9rem',
+                                    fontWeight: 800
+                                }}>
+                                    {String.fromCharCode(65 + i)}
                                 </div>
+                                <span>{opt}</span>
                             </button>
                         );
                     })}
                 </div>
 
                 {isRevealed && q.explanation && (
-                    <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '12px', borderLeft: '4px solid var(--primary)', animation: 'fadeInUp 0.3s ease-out' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', color: 'var(--primary)', fontWeight: 700 }}>
-                            <Info size={18} /> Explanation
+                    <div className="animate-fade-in" style={{ marginTop: '2.5rem', padding: '2rem', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '24px', borderLeft: '6px solid var(--primary)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', color: 'var(--primary)', fontWeight: 800 }}>
+                            <HelpCircle size={20} /> Insight & Reasoning
                         </div>
-                        <p style={{ fontSize: '0.95rem', color: 'var(--text-main)' }}>{q.explanation}</p>
+                        <p style={{ fontSize: '1.05rem', color: 'var(--text-main)', lineHeight: '1.6' }}>{q.explanation}</p>
                     </div>
                 )}
             </div>
@@ -225,25 +232,30 @@ const QuizPage = () => {
                     className="btn btn-secondary"
                     disabled={currentIndex === 0}
                     onClick={() => setCurrentIndex(currentIndex - 1)}
+                    style={{ height: '56px', padding: '0 2rem', borderRadius: '16px' }}
                 >
-                    <ArrowLeft size={18} /> Previous
+                    <ArrowLeft size={18} /> Previous Question
                 </button>
 
-                {isRevealed && !revealed.every(r => r === true) && currentIndex < questions.length - 1 && (
-                    <div style={{ color: isCorrect ? '#10b981' : '#ef4444', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        {isCorrect ? 'Correct Answer!' : 'Incorrect Answer'}
-                    </div>
-                )}
+                <div style={{ textAlign: 'center' }}>
+                    {isRevealed && (
+                        <div style={{ color: isCorrect ? '#10b981' : '#ef4444', fontWeight: 800, fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                            {isCorrect ? <CheckCircle size={20} /> : <HelpCircle size={20} />}
+                            {isCorrect ? 'Stellar Accuracy!' : 'Knowledge Gap Found'}
+                        </div>
+                    )}
+                </div>
 
                 {currentIndex === questions.length - 1 ? (
-                    <button className="btn btn-primary" onClick={handleSubmit}>Submit Solution</button>
+                    <button className="btn btn-primary shadow-lg shimmer" style={{ height: '56px', padding: '0 2.5rem', borderRadius: '16px' }} onClick={handleSubmit}>Finalize Solution</button>
                 ) : (
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary shadow-lg"
                         disabled={mode === 'practice' && !revealed[currentIndex]}
                         onClick={() => setCurrentIndex(currentIndex + 1)}
+                        style={{ height: '56px', padding: '0 2.5rem', borderRadius: '16px' }}
                     >
-                        Next Question <ArrowRight size={18} />
+                        Next Challenge <ArrowRight size={18} />
                     </button>
                 )}
             </div>
