@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tail:*)",
+      "Bash(cd \"C:/Users/Parise/.gemini/antigravity/scratch/archana-edu\" && npx vite build 2>&1)"
+    ]
+  }
+}

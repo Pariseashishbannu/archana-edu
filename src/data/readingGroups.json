@@ -1,0 +1,18 @@
+[
+    {
+        "id": "victorian-classics",
+        "title": "Victorian Classics Club",
+        "subscription": "Monthly",
+        "price": "₹499/mo",
+        "description": "Join our monthly deep-dive into Dickens, Hardy, and the Brontës.",
+        "nextMeet": "15th March, 2026"
+    },
+    {
+        "id": "modernist-poetry",
+        "title": "Modernist Poetry Circle",
+        "subscription": "Monthly",
+        "price": "₹399/mo",
+        "description": "Exploring Eliot, Pound, and Yeats in an interactive group setting.",
+        "nextMeet": "20th March, 2026"
+    }
+]

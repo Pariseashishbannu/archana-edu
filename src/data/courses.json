@@ -1,0 +1,70 @@
+[
+    {
+        "id": "ugc-net-paper-1",
+        "title": "UGC-NET Paper 1 Full Course",
+        "category": "General",
+        "price": "₹2,499",
+        "badge": "Bestseller",
+        "description": "Complete coverage of Teaching Aptitude, Research, ICT, and Higher Education units.",
+        "modules": 10
+    },
+    {
+        "id": "modern-british-lit",
+        "title": "Modern & Post-Modern British Lit",
+        "category": "Literature",
+        "price": "₹1,899",
+        "badge": "New",
+        "description": "Comprehensive study of the 20th and 21st century British literary landscape.",
+        "modules": 15
+    },
+    {
+        "id": "literary-theory",
+        "title": "Mastering Literary Theory",
+        "category": "Theory",
+        "price": "₹1,499",
+        "badge": "Must Watch",
+        "description": "From Structuralism to Post-Colonialism. In-depth analysis for exam aspirants.",
+        "modules": 12
+    },
+    {
+        "id": "drama-poetry",
+        "title": "English Drama & Poetry Essentials",
+        "category": "Genre",
+        "price": "₹1,299",
+        "description": "Major works from Chaucer to the Present. Focused on key stylistic and thematic elements.",
+        "modules": 14
+    },
+    {
+        "id": "indian-lit",
+        "title": "Indian Literature in English",
+        "category": "World Lit",
+        "price": "₹999",
+        "description": "History, major authors, and key texts from the Indian subcontinent.",
+        "modules": 8
+    },
+    {
+        "id": "elt-pedagogy",
+        "title": "English Language Teaching (ELT)",
+        "category": "Pedagogy",
+        "price": "₹899",
+        "description": "Theories, methods, and the history of English in India for the UGC-NET syllabus.",
+        "modules": 6
+    },
+    {
+        "id": "cultural-studies",
+        "title": "Introduction to Cultural Studies",
+        "category": "Cultural",
+        "price": "₹1,199",
+        "badge": "Trending",
+        "description": "Exploring high-yield topics in Cultural Studies, Media, and Popular Culture.",
+        "modules": 9
+    },
+    {
+        "id": "american-postcolonial",
+        "title": "American & Postcolonial Lit",
+        "category": "World Lit",
+        "price": "₹1,599",
+        "description": "Major American classics integrated with Postcolonial perspectives.",
+        "modules": 11
+    }
+]

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGC-NET Mock Test | Archana Education</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .quiz-container {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 0 2rem;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        .timer {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            background: rgba(236, 72, 153, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+        }
+
+        .question-card {
+            margin-bottom: 2rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .option {
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        #result-screen {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .score-circle span {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Archana Education</a>
+            <div class="timer" id="timer">60:00</div>
+        </div>
+    </nav>
+
+    <div class="quiz-container" id="quiz-screen">
+        <div class="quiz-header glass">
+            <h2 id="question-number">Question 1 of 10</h2>
+            <div class="progress-bar-bg"
+                style="width: 100px; height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                <div id="progress-bar" style="width: 10%; height: 100%; background: var(--primary);"></div>
+            </div>
+        </div>
+
+        <div class="card question-card">
+            <h3 id="question-text">Loading question...</h3>
+            <div class="options-grid" id="options">
+                <!-- Options will be injected here -->
+            </div>
+        </div>
+
+        <div class="quiz-footer">
+            <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
+            <button class="btn btn-primary" id="next-btn">Next Question</button>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="result-screen">
+        <div class="card glass">
+            <h1>Test Completed!</h1>
+            <div class="score-circle">
+                <div id="final-score">0</div>
+                <span>/ 10</span>
+            </div>
+            <p id="result-message">Great effort! Keep practicing to improve.</p>
+            <div style="margin-top: 2rem;">
+                <a href="mock-test.html" class="btn btn-primary">Try Again</a>
+                <a href="index.html" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+
+</html>

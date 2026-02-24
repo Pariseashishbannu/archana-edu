@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "question": "Which of the following is an example of a synchronous communication tool?",
+        "options": [
+            "Email",
+            "Forum",
+            "Instant Messaging",
+            "Discussion Board"
+        ],
+        "answer": 2
+    },
+    {
+        "id": 2,
+        "question": "The main objective of teaching is:",
+        "options": [
+            "To give information",
+            "To prepare students for jobs",
+            "To help students in getting good marks",
+            "To develop students' ability to think"
+        ],
+        "answer": 3
+    },
+    {
+        "id": 3,
+        "question": "A research paper is a brief report of research work based on:",
+        "options": [
+            "Primary Data only",
+            "Secondary Data only",
+            "Both Primary and Secondary Data",
+            "None of the above"
+        ],
+        "answer": 2
+    },
+    {
+        "id": 4,
+        "question": "Which of the following belongs to the category of 'Non-probability sampling'?",
+        "options": [
+            "Simple random sampling",
+            "Cluster sampling",
+            "Quota sampling",
+            "Systematic sampling"
+        ],
+        "answer": 2
+    }
+]
